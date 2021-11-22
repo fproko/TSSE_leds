@@ -13,3 +13,8 @@ void ledsOn(int led)
 {
 	*puerto = 0x0004; //Se harcodeada inicialmente led a prender. Luego será corregido en un siguiente test.
 }
+
+void ledsOff(int led)
+{
+	*puerto = 0x0000; //Se harcodeada inicialmente led a apagar. Luego será corregido en un siguiente test.
+}

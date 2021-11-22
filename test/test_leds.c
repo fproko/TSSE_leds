@@ -1,5 +1,4 @@
 /*
- * Test 3: se puede apagar un LED individual.
  * Test 4: se pueden prender y apagar múltiples LED’s.
  * Test 5: se pueden prender todos los LEDs de una vez.
  * Test 6: se pueden apagar todos los LEDs de una vez.
@@ -12,6 +11,7 @@
 
 #define LED 3
 #define LED_BIT(x) (1 << (x - 1))
+#define ALL_LEDS_OFF 0x0000
 
 /* Test 1: después de la inicialización todos los LEDs deben quedar apagados. */
 void test_todos_los_leds_inician_apagados(void)
@@ -28,4 +28,14 @@ void test_prender_un_led(void)
 	ledsConfig(&puertoVirtual); //Se parte de un estado conocido
 	ledsOn(LED);
 	TEST_ASSERT_EQUAL_HEX16(LED_BIT(LED), puertoVirtual); //puertoVirtual debe quedar en 0x0004.
+}
+
+/* Test 3: se puede apagar un LED individual. */
+void test_apagar_un_led(void)
+{
+	uint16_t puertoVirtual;
+	ledsConfig(&puertoVirtual);
+	ledsOn(LED); //Se prende para iniciar y luego se lo apaga.
+	ledsOff(LED);
+	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_OFF, puertoVirtual);
 }
