@@ -1,0 +1,6 @@
+.vscode
+
+# Ceedling
+binarios
+*.bin
+build
