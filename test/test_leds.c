@@ -1,5 +1,4 @@
 /*
- * Test 5: se pueden prender todos los LEDs de una vez.
  * Test 6: se pueden apagar todos los LEDs de una vez.
  * Test 7: se puede consultar el estado de un LED.
  * Test 8: revisar limites de los parametros.
@@ -13,6 +12,7 @@
 #define LED_6 6
 #define LED_BIT(x) (1 << (x - 1))
 #define ALL_LEDS_OFF 0x0000
+#define ALL_LEDS_ON 0xFFFF
 
 static uint16_t puertoVirtual;
 
@@ -53,4 +53,11 @@ void test_prender_y_apagar_multiples_leds(void)
 	ledsOn(LED_6);
 	ledsOff(LED_3);
 	TEST_ASSERT_EQUAL_HEX16(LED_BIT(LED_2) + LED_BIT(LED_6), puertoVirtual);
+}
+
+/* Test 5: se pueden prender todos los LEDs de una vez. */
+void test_prender_todos_los_led(void)
+{
+	ledsAllOn();
+	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_ON, puertoVirtual);
 }
