@@ -13,6 +13,14 @@
 #define LED_BIT(x) (1 << (x - 1))
 #define ALL_LEDS_OFF 0x0000
 
+static uint16_t puertoVirtual;
+
+/* Seteo de precondiciones globales para todas las pruebas */
+void setUp()
+{
+	ledsConfig(&puertoVirtual); //Se llama a ledsConfig antes de cada prueba.
+}
+
 /* Test 1: después de la inicialización todos los LEDs deben quedar apagados. */
 void test_todos_los_leds_inician_apagados(void)
 {
@@ -24,8 +32,6 @@ void test_todos_los_leds_inician_apagados(void)
 /* Test 2: se puede prender un LED individual. */
 void test_prender_un_led(void)
 {
-	uint16_t puertoVirtual;
-	ledsConfig(&puertoVirtual); //Se parte de un estado conocido
 	ledsOn(LED);
 	TEST_ASSERT_EQUAL_HEX16(LED_BIT(LED), puertoVirtual); //puertoVirtual debe quedar en 0x0004.
 }
@@ -33,8 +39,6 @@ void test_prender_un_led(void)
 /* Test 3: se puede apagar un LED individual. */
 void test_apagar_un_led(void)
 {
-	uint16_t puertoVirtual;
-	ledsConfig(&puertoVirtual);
 	ledsOn(LED); //Se prende para iniciar y luego se lo apaga.
 	ledsOff(LED);
 	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_OFF, puertoVirtual);
