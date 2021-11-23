@@ -24,7 +24,12 @@ void ledsOff(int led)
 	*puerto &= ~LED_TO_MASK(led);
 }
 
-void ledsAllOn(int led)
+void ledsAllOn(void)
 {
-	*puerto |= ALL_LEDS_ON;
+	*puerto = ALL_LEDS_ON;
+}
+
+void ledsAllOff(void)
+{
+	*puerto = ALL_LEDS_OFF;
 }

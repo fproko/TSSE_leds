@@ -1,5 +1,4 @@
 /*
- * Test 6: se pueden apagar todos los LEDs de una vez.
  * Test 7: se puede consultar el estado de un LED.
  * Test 8: revisar limites de los parametros.
  * Test 9: revisar parámetros fuera de los limites.
@@ -60,4 +59,12 @@ void test_prender_todos_los_led(void)
 {
 	ledsAllOn();
 	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_ON, puertoVirtual);
+}
+
+/* Test 6: se pueden apagar todos los LEDs de una vez. */
+void test_apagar_todos_los_led(void)
+{
+	ledsAllOn();
+	ledsAllOff();
+	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_OFF, puertoVirtual);
 }
