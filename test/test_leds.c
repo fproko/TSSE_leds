@@ -12,6 +12,8 @@
 #define LED_BIT(x) (1 << (x - 1))
 #define ALL_LEDS_OFF 0x0000
 #define ALL_LEDS_ON 0xFFFF
+#define LED_ON_STATE 1
+#define LED_OFF_STATE 0
 
 static uint16_t puertoVirtual;
 
