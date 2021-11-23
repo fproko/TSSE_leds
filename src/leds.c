@@ -33,3 +33,9 @@ void ledsAllOff(void)
 {
 	*puerto = ALL_LEDS_OFF;
 }
+
+int ledsState(int led)
+{
+	//AND de *puerto con led bit, y luego corrimiento a la derecha de led bit - 1
+	return (*puerto & LED_TO_MASK(led)) >> (led - LED_OFFSET);
+}

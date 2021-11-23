@@ -1,5 +1,4 @@
 /*
- * Test 7: se puede consultar el estado de un LED.
  * Test 8: revisar limites de los parametros.
  * Test 9: revisar parámetros fuera de los limites.
  */
@@ -8,6 +7,7 @@
 
 #define LED_2 2
 #define LED_3 3
+#define LED_5 5
 #define LED_6 6
 #define LED_BIT(x) (1 << (x - 1))
 #define ALL_LEDS_OFF 0x0000
@@ -67,4 +67,14 @@ void test_apagar_todos_los_led(void)
 	ledsAllOn();
 	ledsAllOff();
 	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_OFF, puertoVirtual);
+}
+
+/* Test 7: se puede consultar el estado de un LED. */
+void test_estado_de_led(void)
+{
+	ledsOn(LED_5); //Se prende un led para verificar su estado.
+	TEST_ASSERT_EQUAL(LED_ON_STATE, ledsState(LED_5));
+
+	ledsOff(LED_5); //Se apaga el mismo led para verificar su estado.
+	TEST_ASSERT_EQUAL(LED_OFF_STATE, ledsState(LED_5));
 }
