@@ -1,14 +1,15 @@
 /*
- * Test 8: revisar limites de los parametros.
  * Test 9: revisar parámetros fuera de los limites.
  */
 #include "unity.h"
 #include "leds.h"
 
+#define LED_1 1
 #define LED_2 2
 #define LED_3 3
 #define LED_5 5
 #define LED_6 6
+#define LED_16 16
 #define LED_BIT(x) (1 << (x - 1))
 #define ALL_LEDS_OFF 0x0000
 #define ALL_LEDS_ON 0xFFFF
@@ -79,4 +80,16 @@ void test_estado_de_led(void)
 
 	ledsOff(LED_5); //Se apaga el mismo led para verificar su estado.
 	TEST_ASSERT_EQUAL(LED_OFF_STATE, ledsState(LED_5));
+}
+
+/* Test 8: revisar limites de los parametros. */
+void test_parametros_limites(void)
+{
+	ledsOn(LED_1);
+	ledsOn(LED_16);
+	TEST_ASSERT_EQUAL(0x8001, puertoVirtual);
+
+	ledsOff(LED_1);
+	ledsOff(LED_16);
+	TEST_ASSERT_EQUAL(ALL_LEDS_OFF, puertoVirtual);
 }
