@@ -1,8 +1,6 @@
-/*
- * Test 9: revisar parámetros fuera de los limites.
- */
 #include "unity.h"
 #include "leds.h"
+#include "mock_errores.h"
 
 #define LED_1 1
 #define LED_2 2
@@ -92,4 +90,20 @@ void test_parametros_limites(void)
 	ledsOff(LED_1);
 	ledsOff(LED_16);
 	TEST_ASSERT_EQUAL(ALL_LEDS_OFF, puertoVirtual);
+}
+
+/* Test 9: revisar parámetros fuera de los limites. */
+void test_parametros_fuera_de_los_limites(void)
+{
+	RegistrarMensaje_Expect(0, "ledsOn", 0, "Número de led invalido"); //Se espera una llamada a la función RegistrarMensaje.
+	RegistrarMensaje_IgnoreArg_linea();								   //Se ignora argumento linea.
+	ledsOn(17);
+
+	RegistrarMensaje_Expect(0, "ledsOff", 0, "Número de led invalido");
+	RegistrarMensaje_IgnoreArg_linea();
+	ledsOff(17);
+
+	RegistrarMensaje_Expect(0, "ledsState", 0, "Número de led invalido");
+	RegistrarMensaje_IgnoreArg_linea();
+	TEST_ASSERT_EQUAL(-1, ledsState(0));
 }
