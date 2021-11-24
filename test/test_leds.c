@@ -1,6 +1,16 @@
+/*=====[test_leds.c]===============================================================
+ * Fernando Andres Prokopiuk <fernandoprokopiuk@gmail.com>
+ * Version: 1.0
+ * Fecha de creacion: 24/11/2021
+ */
+
+/*=====[Inclusiones de dependencias de funciones]============================*/
+
 #include "unity.h"
 #include "leds.h"
 #include "mock_errores.h"
+
+/*=====[Macros de definición de constantes privadas]=========================*/
 
 #define LED_1 1
 #define LED_2 2
@@ -14,7 +24,11 @@
 #define LED_ON_STATE 1
 #define LED_OFF_STATE 0
 
+/*=====[Definiciones de variables globales privadas]=========================*/
+
 static uint16_t puertoVirtual;
+
+/*=====[Implementaciones de funciones publicas]==============================*/
 
 /* Seteo de precondiciones globales para todas las pruebas */
 void setUp()
