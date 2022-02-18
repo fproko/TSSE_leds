@@ -16,7 +16,6 @@
 
 #define ALL_LEDS_OFF 0x0000
 #define ALL_LEDS_ON 0xFFFF
-#define LED_ON_STATE 1
 #define LED_OFFSET 1
 #define LED_TO_MASK(x) (LED_ON_STATE << (x - LED_OFFSET))
 #define FIRST_LED 1

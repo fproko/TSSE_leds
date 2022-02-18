@@ -14,6 +14,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/*=====[Macros de definición de constantes publicas]=========================*/
+
+#define LED_ON_STATE 1
+#define LED_OFF_STATE 0
+
 /*=====[Prototipos de funciones publicas]====================================*/
 
 /**
@@ -53,8 +58,8 @@ void ledsAllOff(void);
  * @brief Consulta el estado de un led.
  * 
  * @param led Led que se desea saber el estado.
- * @return int 1 Led encendido.
- * @return int 0 Led apagado.
+ * @return int 1: LED_ON_STATE.
+ * @return int 0: LED_OFF_STATE.
  */
 int ledsState(int led);
 
