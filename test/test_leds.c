@@ -84,39 +84,55 @@ void test_apagar_todos_los_led(void)
 	TEST_ASSERT_EQUAL_HEX16(ALL_LEDS_OFF, puertoVirtual);
 }
 
-/* Test 7: se puede consultar el estado de un LED. */
-void test_estado_de_led(void)
+/* Test 7: se puede consultar el estado de un LED encendido. */
+void test_estado_encendido_de_led(void)
 {
 	ledsOn(LED_5); //Se prende un led para verificar su estado.
 	TEST_ASSERT_EQUAL(LED_ON_STATE, ledsState(LED_5));
+}
 
+/* Test 8: se puede consultar el estado de un LED apagado. */
+void test_estado_apagado_de_led(void)
+{
 	ledsOff(LED_5); //Se apaga el mismo led para verificar su estado.
 	TEST_ASSERT_EQUAL(LED_OFF_STATE, ledsState(LED_5));
 }
 
-/* Test 8: revisar limites de los parametros. */
+/* Test 9: revisar encendido de limites de los parametros. */
 void test_parametros_limites(void)
 {
 	ledsOn(LED_1);
 	ledsOn(LED_16);
 	TEST_ASSERT_EQUAL(0x8001, puertoVirtual);
+}
 
+/* Test 10: revisar apagado de limites de los parametros. */
+void test_apagado_parametros_limites(void)
+{
 	ledsOff(LED_1);
 	ledsOff(LED_16);
 	TEST_ASSERT_EQUAL(ALL_LEDS_OFF, puertoVirtual);
 }
 
-/* Test 9: revisar parámetros fuera de los limites. */
-void test_parametros_fuera_de_los_limites(void)
+/* Test 11: revisar encendido de parámetro fuera de los limites. */
+void test_encendido_parametro_fuera_de_los_limites(void)
 {
 	RegistrarMensaje_Expect(0, "ledsOn", 0, "Número de led invalido"); //Se espera una llamada a la función RegistrarMensaje.
 	RegistrarMensaje_IgnoreArg_linea();								   //Se ignora argumento linea.
 	ledsOn(17);
+}
 
+/* Test 12: revisar apagado de parámetro fuera de los limites. */
+void test_apagado_parametro_fuera_de_los_limites(void)
+{
 	RegistrarMensaje_Expect(0, "ledsOff", 0, "Número de led invalido");
 	RegistrarMensaje_IgnoreArg_linea();
 	ledsOff(17);
+}
 
+/* Test 13: revisar estado de un led fuera de los limites. */
+void test_encendido_parametro_fuera_del_limite_superior(void)
+{
 	RegistrarMensaje_Expect(0, "ledsState", 0, "Número de led invalido");
 	RegistrarMensaje_IgnoreArg_linea();
 	TEST_ASSERT_EQUAL(-1, ledsState(0));
