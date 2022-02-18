@@ -18,6 +18,7 @@
 
 #define LED_ON_STATE 1
 #define LED_OFF_STATE 0
+#define ERROR_LED_RANGE -1
 
 /*=====[Prototipos de funciones publicas]====================================*/
 
@@ -58,8 +59,9 @@ void ledsAllOff(void);
  * @brief Consulta el estado de un led.
  * 
  * @param led Led que se desea saber el estado.
- * @return int 1: LED_ON_STATE.
- * @return int 0: LED_OFF_STATE.
+ * @return int  1: LED_ON_STATE.
+ * @return int  0: LED_OFF_STATE.
+ * @return int -1: ERROR_LED_RANGE.
  */
 int ledsState(int led);
 

@@ -68,7 +68,7 @@ void ledsAllOff(void)
 
 int ledsState(int led)
 {
-	ASSERT_LED_IS_VALID(led, -1);
+	ASSERT_LED_IS_VALID(led, ERROR_LED_RANGE);
 
 	//AND de *puerto con led bit, y luego corrimiento a la derecha de led bit - 1
 	return (*puerto & LED_TO_MASK(led)) >> (led - LED_OFFSET);
