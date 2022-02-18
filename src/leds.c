@@ -22,6 +22,12 @@
 #define FIRST_LED 1
 #define LAST_LED 16
 #define ERROR_LED_NUMBER "Número de led invalido"
+#define ASSERT_LED_IS_VALID(led, error)                                \
+	if (!ledsRange(led))                                               \
+	{                                                                  \
+		RegistrarMensaje(0, __FUNCTION__, __LINE__, ERROR_LED_NUMBER); \
+		return error;                                                  \
+	}
 
 /*=====[Definiciones de variables globales privadas]=========================*/
 
@@ -41,26 +47,14 @@ void ledsConfig(uint16_t *direccion)
 
 void ledsOn(int led)
 {
-	if (ledsRange(led))
-	{
-		*puerto |= LED_TO_MASK(led);
-	}
-	else
-	{
-		RegistrarMensaje(0, __FUNCTION__, __LINE__, ERROR_LED_NUMBER);
-	}
+	ASSERT_LED_IS_VALID(led, );
+	*puerto |= LED_TO_MASK(led);
 }
 
 void ledsOff(int led)
 {
-	if (ledsRange(led))
-	{
-		*puerto &= ~LED_TO_MASK(led);
-	}
-	else
-	{
-		RegistrarMensaje(0, __FUNCTION__, __LINE__, ERROR_LED_NUMBER);
-	}
+	ASSERT_LED_IS_VALID(led, );
+	*puerto &= ~LED_TO_MASK(led);
 }
 
 void ledsAllOn(void)
@@ -75,16 +69,10 @@ void ledsAllOff(void)
 
 int ledsState(int led)
 {
-	if (ledsRange(led))
-	{
-		//AND de *puerto con led bit, y luego corrimiento a la derecha de led bit - 1
-		return (*puerto & LED_TO_MASK(led)) >> (led - LED_OFFSET);
-	}
-	else
-	{
-		RegistrarMensaje(0, __FUNCTION__, __LINE__, ERROR_LED_NUMBER);
-		return -1;
-	}
+	ASSERT_LED_IS_VALID(led, -1);
+
+	//AND de *puerto con led bit, y luego corrimiento a la derecha de led bit - 1
+	return (*puerto & LED_TO_MASK(led)) >> (led - LED_OFFSET);
 }
 
 /*=====[Implementaciones de funciones privadas]==============================*/
